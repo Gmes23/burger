@@ -1,40 +1,31 @@
-require('./connection.js');
+var connection = require('./connection.js');
 
-selectAll = function(
-  app.get('/', function(req,res) {
-    connection.query('SELECT * FROM burgers;', function(err, data) {
+var orm = {
+  all: function(cb) {
+    var selectFROM = 'SELECT * FROM burgers;';
+    connection.query(selectFROM, function(err, data) {
       if (err) throw err;
-
-      res.render('index', {burgers: data});//remember to change this to right handlebar location
-
-    });
-  });
-)
-
-insertOne = function(
-  app.post('/create', function(req,res){
-    connection.query('INSERT INTO burgers() VALUES (?)', [req.body.plan], function(err, result) {
+       cd(data);
+     });
+  },
+  create: function(cb) {
+    connection.query('INSERT INTO burgers (burger_name) VALUES (?)', [req.body.newBurgers], function(err, result) {
       if (err) throw err;
-      res.redirect('/');
+      cd(result);
     });
-  });
-)
-
-deleteThis = function(
-  app.delete('/delete', function(req,res){
-    connection.query('DELETE FROM burgers WHERE id = ?', [req.body.id], function(err, result) {
+ },
+  update : function(cb) {
+    connection.query('UPDATE burgers SET devoured = ? WHERE id = ? ', [req.body.eatBurger, req.params.id], function(err, result){
       if (err) throw err;
-      res.redirect('/');
-    });
-  });
-)
-
-updateOne = function(
-  app.put('/update', function(req,res){
-
-    connection.query('UPDATE burgers SET = ? WHERE id = ?', [req.body.burgers, req.body.id], function(err, result) {
+      cd(result);
+    })
+  },
+  delete : function(cb) {
+    connection.query('DELETE FROM burger WHERE id = ?', [req.body.id], function(err, result) {
       if (err) throw err;
       res.redirect('/');
     });
-  });
-)
+  }
+};
+
+module.exports = orm;

@@ -1,29 +1,48 @@
-<h1>Movies To Watch</h1>
+<h1>Burger Store
+</h1>
 
 <ul>
   {{#each burgers}}
+    {{#unless this.devoured}}<!-- learn what unless does-->
     <li>
-      <p>
-        {{this.id}}. {{this.burger}}
-
-        <form action="/delete?_method=DELETE" method="POST">
-          <input type="hidden" name="id" value="{{this.id}}">
-          <button type="submit">Delete</button>
+      <p><span class="label">ID:</span> {{this.id}}</p>
+      <p><span class="label">name:</span> {{this.burger_name}}</p>
+      <p><span class="label">has it been eaten:</span> {{this.devoured}}</p>
+        <form action="/burgers/update/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="eatBurger" value="1">
+          <button type="submit">Eat!</button>
         </form>
       </p>
     </li>
+    {{/unless}}
   {{/each}}
 </ul>
 
+<h2>burger has been eaten</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#if this.devoured}}
+      <li>
+        {{this.burger_name}}
+        <form action="/burgers/update/{{this.id}}?_method=PUT" method="POST">
+          <input type="hidden" name="eatBurger" value="0">
+          <button type="submit">throw it up</button>
+        </form>
+      </li>
+    {{/if}}
+  {{/each}}
+</ul>
+
+
 <h2>add a new burger</h2>
 <form method="POST" action="/create" class="button-size">
-	<textarea type="text" name="movie"></textarea>
-	<button type="submit">Save Movie!</button>
+	<textarea type="text" name="newBurgers"></textarea>
+	<button type="submit">create your burger!</button>
 </form>
-
+<!--
 <h2>change something in the menu</h2>
 <form action="/update?_method=PUT" method="POST" class="button-size">
-  <input type="text" name="id" placeholder="id">
-	<textarea type="text" name="movie" placeholder="what do you want to update this movie title to?"></textarea>
-	<button type="submit">Update Movie!</button>
-</form>
+  <input type="hidden" name="id" value="{{this.id}}">
+  <button type="submit">EAT!</button>
+</form> -->
