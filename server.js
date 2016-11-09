@@ -13,7 +13,6 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
 app.use(methodOverride('_method'));
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(process.cwd() + '/public'));
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));

@@ -1,11 +1,11 @@
 var connection = require('./connection.js');
-
+// fix the cd into cb
 var orm = {
   all: function(cb) {
     var selectFROM = 'SELECT * FROM burgers;';
     connection.query(selectFROM, function(err, data) {
       if (err) throw err;
-       cd(data);
+       cb(data);
      });
   },
   create: function(cb) {
