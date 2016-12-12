@@ -1,8 +1,7 @@
 'use strict';
-var Sequelize = require("sequelize");
-
-module.exports = function(sequelize, DataTypes) {
-  var burger = sequelize.define('burgers', {
+module.exports = {
+  up: function(queryInterface, Sequelize) {
+    return queryInterface.createTable('burgers', {
       burger_name: {
         type: DataTypes.STRING,
         unique: true,
@@ -14,8 +13,9 @@ module.exports = function(sequelize, DataTypes) {
        type: DataTypes.BOOLEAN,
        defaultValue: 0
      },
-  }, {
-    timestamps: false
-  });
-  return burger;
+    });
+  },
+  down: function(queryInterface, Sequelize) {
+
+  }
 };

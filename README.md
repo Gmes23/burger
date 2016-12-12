@@ -1,1 +1,2 @@
-# burger
+# sequelizedBurger
+Burger App - The Sequel
